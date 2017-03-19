@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
 def new_unfollow(self, user_id, user_name):
     """ Send http request to unfollow """
     url_unfollow = self.url_unfollow % (user_id)
@@ -14,4 +15,3 @@ def new_unfollow(self, user_id, user_name):
     except:
         self.write_log("Exept on unfollow!")
         return False
-

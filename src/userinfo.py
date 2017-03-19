@@ -4,6 +4,7 @@
 import requests
 import json
 
+
 class UserInfo:
     '''
     This class try to take some user info (following, followers, etc.)
@@ -13,8 +14,7 @@ class UserInfo:
 
     url_user_info = "https://www.instagram.com/%s/?__a=1"
     url_list = {
-                "ink361":
-                     {
+                "ink361": {
                       "main": "http://ink361.com/",
                       "user": "http://ink361.com/app/users/%s",
                       "search_name": "https://data.ink361.com/v1/users/search?q=%s",
@@ -31,14 +31,14 @@ class UserInfo:
 
     def hello(self):
         self.s = requests.Session()
-        self.s.headers.update({'User-Agent' : self.user_agent})
+        self.s.headers.update({'User-Agent': self.user_agent})
         main = self.s.get(self.url_list[self.i_a]["main"])
         if main.status_code == 200:
             return True
         return False
 
     def get_user_id_by_login(self, user_name):
-        url_info= self.url_user_info % (user_name)
+        url_info = self.url_user_info % (user_name)
         info = self.s.get(url_info)
         all_data = json.loads(info.text)
         id_user = all_data['user']['id']
@@ -89,12 +89,12 @@ class UserInfo:
                 followers = self.s.get(next_url)
                 r = json.loads(followers.text)
                 for u in r["data"]:
-                    if  limit > 0 or limit < 0:
+                    if limit > 0 or limit < 0:
                         self.followers.append({
                                                 "username": u["username"],
-                                                #"profile_picture": u["profile_picture"],
+                                                # "profile_picture": u["profile_picture"],
                                                 "id": u["id"].split("-")[1],
-                                                #"full_name": u["full_name"]
+                                                # "full_name": u["full_name"]
                                               })
                         limit -= 1
                     else:
@@ -119,9 +119,9 @@ class UserInfo:
                     if limit > 0 or limit < 0:
                         self.following.append({
                                                 "username": u["username"],
-                                                #"profile_picture": u["profile_picture"],
+                                                # "profile_picture": u["profile_picture"],
                                                 "id": u["id"].split("-")[1],
-                                                #"full_name": u["full_name"]
+                                                # "full_name": u["full_name"]
                                               })
                         limit -= 1
                     else:
@@ -137,6 +137,7 @@ class UserInfo:
     def get_stat(self, limit):
         # todo
         return False
+
 
 '''
 # example
